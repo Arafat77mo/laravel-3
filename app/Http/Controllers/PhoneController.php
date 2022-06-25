@@ -41,6 +41,11 @@ return view('Phone.create');
      */
     public function store(Request $request)
     {
+
+
+        $validated = $request->validate([
+            'phone' => 'required|numeric|unique:phones,phone|regex:/(01)[0-2]/|digits:11'
+        ]);
         $user = new Phone();
 
         $user->phone = $request->post('phone');
@@ -83,6 +88,7 @@ return view('Phone.create');
      */
     public function update(Request $request, $id)
     {
+
         $phone = Phone::find($id);
 
         $phone->phone = $request->post('phone');
